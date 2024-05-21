@@ -7,6 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Nav/>
+      
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/addcategory" element={<AddCategory/>}></Route>
