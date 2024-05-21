@@ -9,6 +9,8 @@ function App() {
     <BrowserRouter>
       <Nav/>
       <Routes>
+        <Menu_items/>
+
         <Route path="/" element={<Home/>}></Route>
         <Route path="/addcategory" element={<AddCategory/>}></Route>
       </Routes>
