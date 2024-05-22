@@ -24,7 +24,7 @@ const Menu_items = () => {
   const handleAddProduct=async()=>{
     await axios.post('http://localhost:4000/additem',itemdata)
     .then((res)=>{
-      console.log(res);
+      // console.log(res);
       setItemdata({
         categoryName:'',
         productName:'',
