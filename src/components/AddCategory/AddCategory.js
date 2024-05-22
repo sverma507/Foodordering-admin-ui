@@ -60,7 +60,7 @@ function AddCategory() {
     // go_search()
   };
  
-  console.log("data=>",data);
+  // console.log("data=>",data);
   return (
     <div className='bg-slate-200 px-4 w-screen'>
       <div className='px-10 py-2 flex flex-col md:flex-row justify-between'>
