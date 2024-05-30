@@ -40,7 +40,8 @@ function Home() {
             }
           )
         })
-        console.log(res?.data);})
+        // console.log(res?.data);
+      })  
       .catch((err)=>{
         console.log("error in api of getting the total no of items");
       })
