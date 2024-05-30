@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-const Menu_items = () => {
+import { useLocation, useNavigate } from 'react-router-dom';
+const Menu_items = ({additem}) => {
   const [categoryData,setCategoryData]=useState(null);
   const [itemdata,setItemdata]=useState({
     categoryName:'',
@@ -9,8 +10,15 @@ const Menu_items = () => {
     foodType:'',
     price:'',
     discount:'',
+    added:false,
   })
-
+  const navigate=useNavigate();
+  const location=useLocation();
+  const tempData=location.state;
+  useEffect(()=>{
+    // console.log("tempdata=>",tempData);
+   if(tempData){ setItemdata(tempData);}
+  },[tempData])
 
   const handleChange=(e)=>{
     const {name,value}=e.target;
@@ -32,6 +40,7 @@ const Menu_items = () => {
         foodType:'',
         price:'',
         discount:'',
+        added:false,
       })
     })
     .catch((err)=>{
@@ -49,9 +58,26 @@ const Menu_items = () => {
       }
 
   }
-
   useEffect(()=>{getCategoryData()},[])
+
+  const handleUpdate=async()=>{
+    // console.log("tempdata=>",tempData);
+    const id=tempData._id;
+   
+    try {
+      const res = await axios.put('http://localhost:4000/updateitem',itemdata);
+      // setCategoryData(res.data);
+      // setSearchdata(res.data); 
+      navigate('/itemdata');
+
+    } catch (err) {
+      console.log("error in getting data", err);
+    }
+
+    
+  }
   // console.log("category data=>",categoryData);
+  // console.log("tempData=>",tempData);
   return (
   categoryData && <div class= "bg-slate-300 w-full ">   
   <div class=" max-w-lg mx-auto p-10 ">
@@ -106,8 +132,8 @@ const Menu_items = () => {
     
 
     <div class="flex items-center justify-between">
-      <button onClick={handleAddProduct} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-      <i class="fa-solid fa-plus"></i>  Add Product
+      <button onClick={additem ? handleAddProduct :handleUpdate} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+      <i class="fa-solid fa-plus"></i>  {additem ?'ADD ITEM' :"UPDATE"}
       </button>
     </div>
   </form>
