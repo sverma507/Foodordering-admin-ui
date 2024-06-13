@@ -9,15 +9,15 @@ export default function ItemData() {
         try {
             await axios.get('http://localhost:4000/getitem')
                 .then((res) => {
+                    console.log(res?.data);
                     setData((prev) => {
                         return (
                             {
                                 ...prev,
-                                totalItem: res?.data?.result
+                                totalItem: res?.data
                             }
                         )
                     })
-                    // console.log(res?.data);
                 })
                 .catch((err) => {
                     console.log("error in api of getting the total no of items");
