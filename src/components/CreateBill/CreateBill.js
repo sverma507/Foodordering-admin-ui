@@ -10,10 +10,11 @@ function CreateBill() {
     const [order, setOrder] = useState([]);
     const navigate = useNavigate();
 
+    
     useEffect(() => {
         getdata();
         // getOrder()
-    }, []);
+    },[]);
 
     const getdata = async () => {
         try {
