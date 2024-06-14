@@ -1,11 +1,19 @@
+import React from 'react'
 
+ import ReactDOM from "react-dom/client";
+ import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from './components/Register'
+import Login0 from './components/Login0'
 
-function App() {
+export default function App() {
+ 
   return (
-    <div className="App">
-     
+    <div>
+      {/* <Login0/> */}
+      <Register/>
+      
     </div>
-  );
+  )
 }
-
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
