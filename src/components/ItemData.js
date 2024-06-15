@@ -9,11 +9,12 @@ export default function ItemData() {
         try {
             await axios.get('http://localhost:4000/getitem')
                 .then((res) => {
+                    console.log("res=>>>>>",res);
                     setData((prev) => {
                         return (
                             {
                                 ...prev,
-                                totalItem: res?.data?.result
+                                totalItem: res?.data
                             }
                         )
                     })
@@ -161,7 +162,7 @@ export default function ItemData() {
                                     Category
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Fare
+                                    Price
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Discount

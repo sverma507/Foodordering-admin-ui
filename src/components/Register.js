@@ -3,17 +3,16 @@ import React from "react";
 import abc from "./assets/Image1.jpg";
 import { useState } from "react";
 import axios from "axios";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { useNavigate } from "react-router";
 export default function Register() {
   const [data, setData] = useState({
-    First_Name: "",
-    Last_Name: "",
-    Email: "",
-    Password: "",
-    Confirm_Password: "",
+    first_Name: "",
+    last_Name: "",
+    email: "",
+    password: "",
+    confirm_Password: "",
   });
+  const navigate=useNavigate();
 
   const go_get = (e) => {
     // console.log("e=>",e.target);
@@ -29,14 +28,16 @@ export default function Register() {
     window.location.reload(false);
   }
   const submit = async (e) => {
-    refreshPage();
+    // refreshPage();
     e.preventDefault();
-    console.log("data=>gyhjk", data);
-    await axios
-      .post("http://localhost:8000/Register", data)
+    // console.log("data=>", data);
+    await axios.post("http://localhost:4000/register", data)
       .then((response) => {
         console.log("res=>", response);
-		alert("Registration is completed");
+        localStorage.setItem("token",response.data)
+        alert("Registration is completed");
+        navigate('/')
+        
       })
       .catch((error) => {
         console.log(error);
@@ -72,7 +73,7 @@ export default function Register() {
                         id="first_Name"
                         type="text"
                         placeholder="First Name"
-                        name="First_Name"
+                        name="first_Name"
                         value={data.First_Name}
                         onChange={(e) => {
                           go_get(e);
@@ -91,7 +92,7 @@ export default function Register() {
                         id="last_Name"
                         type="text"
                         placeholder="Last Name"
-                        name="Last_Name"
+                        name="last_Name"
                         value={data.Last_Name}
                         onChange={(e) => {
                           go_get(e);
@@ -111,7 +112,7 @@ export default function Register() {
                       id="email"
                       type="email"
                       placeholder="Email"
-                      name="Email"
+                      name="email"
                       value={data.Email}
                       onChange={(e) => {
                         go_get(e);
@@ -129,9 +130,9 @@ export default function Register() {
                       <input
                         class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         id="password"
-                        type="password"
+                        type="text"
                         placeholder="******************"
-                        name="Password"
+                        name="password"
                         value={data.Password}
                         onChange={(e) => {
                           go_get(e);
@@ -150,10 +151,10 @@ export default function Register() {
                       </label>
                       <input
                         class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        id="Confirm_Password"
-                        type="password"
+                        id="confirm_Password"
+                        type="text"
                         placeholder="******************"
-                        name="Confirm_Password"
+                        name="confirm_Password"
                         value={data.Confirm_Password}
                         onChange={(e) => {
                           go_get(e);
@@ -185,7 +186,7 @@ export default function Register() {
                     <a
                       class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
                       href=""
-					  Sign In
+                      Sign In
                     >
                     </a>
                   </div>

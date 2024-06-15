@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-function Nav() {
+function Nav({toggle}) {
     const navigate=useNavigate();
     const [showdropdown,setShowdropdown]=useState(false)
     // const [mobile,setMobile]=useState(window.innerWidth<768)
@@ -16,6 +16,7 @@ function Nav() {
             <div className={showdropdown ?'px-4 flex items-center h-12 text-xl hover:bg-blue-500 hover:text-white  rounded':'hover:cursor-pointer  hover:text-blue-500 transform hover:scale-110 transition-transform duration-200'}  onClick={()=>{navigate("/itemdata");setShowdropdown(false)}}> <i class="fa-solid fa-house"></i> All Items</div>
             <div className={showdropdown ?'px-4 flex items-center h-12 text-xl hover:bg-blue-500 hover:text-white rounded':'hover:cursor-pointer  hover:text-blue-500 transform hover:scale-110 transition-transform duration-200'} onClick={()=>{navigate("/additem");setShowdropdown(false)}}><i class="fa-solid fa-plus"></i> Add Item</div>
             <div className={showdropdown ?'px-4 flex items-center h-12 text-xl hover:bg-blue-500 hover:text-white rounded':'hover:cursor-pointer  hover:text-blue-500 transform hover:scale-110 transition-transform duration-200'} onClick={()=>{navigate("/addcategory");setShowdropdown(false)}}><i class="fa-solid fa-plus"></i> Add Category</div>
+            <div className={showdropdown ?'px-4 flex items-center h-12 text-xl text-red-600 hover:bg-blue-500 hover:text-white rounded':'hover:cursor-pointer  hover:text-blue-500 transform hover:scale-110 transition-transform duration-200'} onClick={()=>{navigate('/');toggle(false)}}> Logout</div>
         </div>
     </div>
   )
