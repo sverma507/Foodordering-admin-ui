@@ -1,7 +1,7 @@
 import AddCategory from "./components/AddCategory/AddCategory";
 import Home from "./components/Home/Home";
-import Navbar from "./components/Navbar/Navbar";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+// import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Nav from "./components/Navbar/Nav";
 import Menu_items from "./components/Menu/Menu_items";
 import ItemData from "./components/ItemData";

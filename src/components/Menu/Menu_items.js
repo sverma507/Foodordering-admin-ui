@@ -71,7 +71,7 @@ const Menu_items = ({additem}) => {
       navigate('/itemdata');
 
     } catch (err) {
-      console.log("error in getting data", err);
+      console.log("error in updating item", err);
     }
 
     

@@ -9,7 +9,7 @@ export default function ItemData() {
         try {
             await axios.get('http://localhost:4000/getitem')
                 .then((res) => {
-                    console.log("res=>>>>>",res);
+                    console.log(res?.data);
                     setData((prev) => {
                         return (
                             {
@@ -18,7 +18,6 @@ export default function ItemData() {
                             }
                         )
                     })
-                    // console.log(res?.data);
                 })
                 .catch((err) => {
                     console.log("error in api of getting the total no of items");
