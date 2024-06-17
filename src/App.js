@@ -24,22 +24,26 @@ function App() {
     }
   }, []);
 
+  const toggle=()=>{
+    setUserFound(!userFound)
+  }
+
   return (
     <BrowserRouter>
-      {userFound && <Nav />}
+      {userFound && <Nav toggle={toggle} />}
       <Routes>
         <Route path="/" element={<Login0 toggle={setUserFound} />} />
         <Route path="/register" element={<Register />} />
-        {/* {userFound && */}
-          {/* <> */}
+        {userFound &&
+          <>
             <Route path="/home" element={<CreateBill />} />
             <Route path="/additem" element={<Menu_items additem={true} />} />
             <Route path="/updateitem" element={<Menu_items additem={false} />} />
             <Route path="/addcategory" element={<AddCategory />} />
             <Route path="/itemdata" element={<ItemData />} />
             <Route path="/bill" element={<Bill />} />
-          {/* </> */}
-        {/* } */}
+          </>
+         } 
       </Routes>
     </BrowserRouter>
   );
