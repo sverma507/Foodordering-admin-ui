@@ -5,30 +5,47 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Nav from "./components/Navbar/Nav";
 import Menu_items from "./components/Menu/Menu_items";
 import ItemData from "./components/ItemData";
-import ItemDataNav from "./components/ItemData";
 import CreateBill from "./components/CreateBill/CreateBill";
 import Bill from "./components/Bill/Bill";
+import Register from './components/Register';
+import Login0 from "./components/Login0";
+import { useEffect, useState } from "react";
+
 function App() {
+  const [userFound, setUserFound] = useState(false);
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedin = localStorage.getItem('loggedin');
+    if (loggedin) {
+      setUserFound(true);
+    } else {
+      // navigate('/');
+    }
+  }, []);
+
+  const toggle=()=>{
+    setUserFound(!userFound)
+  }
+
   return (
     <BrowserRouter>
-      <Nav/>
-      
+      {userFound && <Nav toggle={toggle} />}
       <Routes>
-      
-
-        <Route path="/" element={<CreateBill/>}></Route>
-        {/* <Route path="/" element={<Home/>}></Route> */}
-        <Route path="/additem" element={<Menu_items additem={true}/>}></Route>
-        <Route path="/updateitem" element={<Menu_items additem={false}/>}></Route>
-        <Route path="/addcategory" element={<AddCategory/>}></Route>
-        <Route path="/itemdata" element={<ItemData/>}></Route>
-        <Route path="/bill" element={<Bill/>}></Route>
-        {/* <Route path="/addcategory" element={<ItemDataNav/>}></Route> */}
+        <Route path="/" element={<Login0 toggle={setUserFound} />} />
+        <Route path="/register" element={<Register />} />
+        {userFound &&
+          <>
+            <Route path="/home" element={<CreateBill />} />
+            <Route path="/additem" element={<Menu_items additem={true} />} />
+            <Route path="/updateitem" element={<Menu_items additem={false} />} />
+            <Route path="/addcategory" element={<AddCategory />} />
+            <Route path="/itemdata" element={<ItemData />} />
+            <Route path="/bill" element={<Bill />} />
+          </>
+         } 
       </Routes>
     </BrowserRouter>
-   
-     
-    
   );
 }
 

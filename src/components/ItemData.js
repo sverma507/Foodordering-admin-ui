@@ -161,7 +161,7 @@ export default function ItemData() {
                                     Category
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Fare
+                                    Price
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Discount

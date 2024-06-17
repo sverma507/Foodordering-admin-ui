@@ -229,7 +229,7 @@ function CreateBill() {
                         return (
                             <div className='my-2 pb-2 flex justify-between border-b border-gray-500 h-16 items-center' key={item._id}>
                                 <div className='w-20 '>{item.productName}</div>
-                                <div className=''><input type='number' className=' text-center w-10 border border-gray-500' value={item.qty} onChange={(e) => { handleQty(item, e, idx) }} /></div>
+                                <div className=''><input type='number' className=' text-center w-12 border border-gray-500' value={item.qty} onChange={(e) => { handleQty(item, e, idx) }} /></div>
                                 <div className=''>{item.price}</div>
                                 <div className=''>{parseInt(item.price) * parseInt(item.qty)}</div>
                                 <div className='w-8 hover:cursor-pointer hover:text-red-500' onClick={() => { deleteOrder(item._id) }}><i className="fa-solid fa-trash-can"></i></div>

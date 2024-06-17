@@ -69,7 +69,7 @@ function AddCategory() {
       </div>
       <div className='flex flex-col md:flex-row justify-between gap-4 w-full py-6'>
         <div className='flex flex-col '>
-          <div className='bg-slate-100 w-full md:w-96 rounded-lg'>
+          <div className='bg-slate-100 w-3/6 md:w-96 rounded-lg'>
             <div className='bg-green-600 h-10 text-white flex justify-center items-center rounded-t-lg'>ADD CATEGORY</div>
             <div className='bg-slate-100 h-32 p-4'>
               <div className='m-2 font-bold'>Name of Category</div>
@@ -93,7 +93,7 @@ function AddCategory() {
             </div>
           </div>
         </div>
-        <div className='rounded-lg bg-slate-100 md:w-5/6'>
+        <div className='rounded-lg bg-slate-100 md:w-4/6'>
           <div className='h-10 bg-blue-600 w-full flex justify-between items-center px-4 rounded-t-lg'>
             <div className='text-white font-bold'>All Listed Category</div>
             <div className='text-white font-bold hover:cursor-pointer' onClick={getdata}>Refresh</div>
