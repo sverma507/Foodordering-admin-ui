@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
+import emailjs from 'emailjs-com';
 const Bill = () => {
   const {state}=useLocation();
   const [paid,setPaid]=useState(true);
@@ -8,13 +9,19 @@ const Bill = () => {
   let total_price=0;
   // console.log("order=====>",order);
 
-  const handleClick=()=>{
+  const handleClick=(e)=>{
     setPaid(false);
     order.forEach(async(item)=>{
         const tempItem={...item,["added"]:false}
        const result= await axios.put('http://localhost:4000/updateitem',tempItem);
     })
     localStorage.removeItem('order');
+     emailjs.sendForm('sverma70568@gmail.com','__ejs-test-mail-service__', e.target, '0ufgk3L6jzl6ApO2W')
+    .then((result) => {
+        window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior) 
+    }, (error) => {
+        console.log(error.text);
+    });
   }
   return (
     <div>
@@ -82,7 +89,7 @@ const Bill = () => {
             <p class="text-gray-700">XYZ Company</p>
         </div>
     </div>
-   {paid && <div className='rounded w-52 h-14 bg-green-500 flex justify-center items-center text-white text-3xl hover:bg-green-700 hover:cursor-pointer' onClick={handleClick}>Pay</div>}
+   {paid && <div className='rounded w-52 h-14 bg-green-500 flex justify-center items-center text-white text-3xl hover:bg-green-700 hover:cursor-pointer' onClick={(e)=>{handleClick(e)}}>Pay</div>}
     </body>
     </div>
    
