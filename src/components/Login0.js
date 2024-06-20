@@ -5,9 +5,9 @@ import abc from "./assets/Image1.jpg";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,useNavigate} from 'react-router-dom';
 
-export default function Login0({ toggle }) {
+export default function Login0({ toggle,handleEmail}) {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -28,15 +28,20 @@ export default function Login0({ toggle }) {
     // const token = localStorage.getItem('token');
     // console.log("token from local=>", token);
     try {
-      const response = await axios.post('http://localhost:4000/login', data, )
+      const response = await axios.post('http://localhost:4000/login', data)
       
       console.log("res=>", response);
       toast.success("User Found");
       const admin=response.data.result.admin;
+      const email=response.data.result.email;
+      const fname=response.data.result.first_Name;
       const token=response.data.token;
       localStorage.setItem('token',token) 
+      localStorage.setItem('email',email) 
+      localStorage.setItem('fname',fname) 
       // console.log("adminData=====>",admin);
       toggle(admin,true);
+      handleEmail(data.email);
       navigate("/home");
     } catch (error) {
       console.log(error);
@@ -46,7 +51,7 @@ export default function Login0({ toggle }) {
 
   return (
     <div className="h-full bg-gray-400 dark:bg-gray-900">
-      <div className="mx-auto" style={{ backgroundImage: `url(${abc})` }}>
+      <div className="mx-auto bg-cover" style={{ backgroundImage: `url(${abc})` }}>
         <div className="flex justify-center px-6">
           <div className="w-full xl:w-3/4 lg:w-11/12 flex">
             <div className="w-full h-auto bg-gray-400 dark:bg-gray-800 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg" style={{ backgroundImage: `url(${abc})` }}></div>

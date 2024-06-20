@@ -1,100 +1,100 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
-import emailjs from 'emailjs-com';
-const Bill = () => {
-  const {state}=useLocation();
-  const [paid,setPaid]=useState(true);
-  const order=state.order;
-  let total_price=0;
-  // console.log("order=====>",order);
+// import SuccessAnimation from "actually-accessible-react-success-animation";
 
-  const handleClick=(e)=>{
+const Bill = ({ email }) => {
+  const fname=localStorage.getItem('fname')
+  const semail=localStorage.getItem('email')
+  console.log("mail in bill ",email);
+  const { state } = useLocation();
+  const [paid, setPaid] = useState(true);
+  const order = state.order;
+  const data={order:[...order],email:semail}
+  console.log("orderfrom Billl=>",order);
+  let total_price = 0;
+
+  const handleClick = async (e) => {
+    e.preventDefault();
     setPaid(false);
-    order.forEach(async(item)=>{
-        const tempItem={...item,["added"]:false}
-       const result= await axios.put('http://localhost:4000/updateitem',tempItem);
-    })
+    for (const item of order) {
+      const tempItem = { ...item, added: false };
+      await axios.put('http://localhost:4000/updateitem', tempItem);
+    }
     localStorage.removeItem('order');
-     emailjs.sendForm('sverma70568@gmail.com','__ejs-test-mail-service__', e.target, '0ufgk3L6jzl6ApO2W')
-    .then((result) => {
-        window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior) 
-    }, (error) => {
-        console.log(error.text);
-    });
-  }
+    
+    await axios.post('http://localhost:4000/sendmail',data)
+  };
+
   return (
     <div>
-<body class="bg-gray-100 p-6">
-    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold">Final Product Bill</h1>
-            <p class="text-gray-600">Date: June 7, 2024</p>
-        </div>
+      <body className="bg-gray-100 p-6">
+        <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-bold">Final Product Bill</h1>
+            <p className="text-gray-600">Date: June 7, 2024</p>
+          </div>
 
-        <div class="mb-6">
-            <h2 class="text-lg font-semibold">Customer Information</h2>
-            <p class="text-gray-700">Name:</p>
-            <p class="text-gray-700">Address:</p>
-        </div>
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold">Customer Information</h2>
+            <p className="text-gray-700">Name: {fname}</p>
+            <p className="text-gray-700">Address: {semail}</p>
+          </div>
 
-        <div class="mb-6">
-            <h2 class="text-lg font-semibold">Product Details</h2>
-            <table class="min-w-full bg-white">
-                <thead>
-                    <tr class="w-full bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                        <th class="py-3 px-4 text-left">Item No.</th>
-                        <th class="py-3 px-4 text-left">Item Name</th>
-                        <th class="py-3 px-4 text-left">Quantity</th>
-                        <th class="py-3 px-4 text-left">Unit Price</th>
-                        <th class="py-3 px-4 text-left">Total Price</th>
-                    </tr>
-                   {
-                      order?.map((item,index)=>{
-                        total_price=total_price+item.qty*item.price
-                        return(
-                          <tr>
-                            <td class="py-3 px-4 text-left">{index+1}</td>
-                            <td class="py-3 px-4 text-left">{item.productName}</td>
-                            <td class="py-3 px-4 text-left">{item.qty}</td>
-                            <td class="py-3 px-4 text-left">{item.price}</td>
-                            <td class="py-3 px-4 text-left">{item.qty*item.price}</td>
-                          </tr>
-                        )
-                      })
-                   }
-                </thead>
-                
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold">Product Details</h2>
+            <table className="min-w-full bg-white">
+              <thead>
+                <tr className="w-full bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                  <th className="py-3 px-4 text-left">Item No.</th>
+                  <th className="py-3 px-4 text-left">Item Name</th>
+                  <th className="py-3 px-4 text-left">Quantity</th>
+                  <th className="py-3 px-4 text-left">Unit Price</th>
+                  <th className="py-3 px-4 text-left">Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  order?.map((item, index) => {
+                    total_price += item.qty * item.price;
+                    return (
+                      <tr key={index}>
+                        <td className="py-3 px-4 text-left">{index + 1}</td>
+                        <td className="py-3 px-4 text-left">{item.productName}</td>
+                        <td className="py-3 px-4 text-left">{item.qty}</td>
+                        <td className="py-3 px-4 text-left">{item.price}</td>
+                        <td className="py-3 px-4 text-left">{item.qty * item.price}</td>
+                      </tr>
+                    );
+                  })
+                }
+              </tbody>
             </table>
-        </div>
+          </div>
 
-        <div class="mb-6">
-            {/* <h2 class="text-lg font-semibold">Summary</h2>
-            <div class="flex justify-between py-2">
-                <span class="text-gray-700">Subtotal</span>
-
+          <div className="mb-6">
+            <div className="flex justify-between py-2 font-bold">
+              <span>Total Amount</span> <span>{total_price}</span>
             </div>
-            <div class="flex justify-between py-2">
-                <span class="text-gray-700">Discount (10%)</span>
+          </div>
 
-            </div> */}
-            <div class="flex justify-between py-2 font-bold">
-                <span>Total Amount</span> <span> {total_price}</span>
-               
-            </div>
+          <div className="text-center mt-6">
+            <p className="text-gray-700">Thank you for your purchase!</p>
+            <p className="text-gray-700">XYZ Company</p>
+          </div>
         </div>
 
-        <div class="text-center mt-6">
-            <p class="text-gray-700">Thank you for your purchase!</p>
-            <p class="text-gray-700">XYZ Company</p>
-        </div>
+        {paid &&
+          <form onSubmit={handleClick}>
+            <input type='hidden' value={email} />
+            <button type="submit" className='rounded w-52 h-14 bg-green-500 flex justify-center items-center text-white text-3xl hover:bg-green-700 hover:cursor-pointer'>
+              Pay
+            </button>
+          </form>
+        }
+      </body>
     </div>
-   {paid && <div className='rounded w-52 h-14 bg-green-500 flex justify-center items-center text-white text-3xl hover:bg-green-700 hover:cursor-pointer' onClick={(e)=>{handleClick(e)}}>Pay</div>}
-    </body>
-    </div>
-   
-
-  )
+  );
 }
 
-export default Bill
+export default Bill;
