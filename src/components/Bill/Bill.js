@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 // import SuccessAnimation from "actually-accessible-react-success-animation";
-
+import { URL } from '../../Constant/Constant';
 const Bill = ({ email }) => {
   const fname=localStorage.getItem('fname')
   const semail=localStorage.getItem('email')
@@ -19,11 +19,11 @@ const Bill = ({ email }) => {
     setPaid(false);
     for (const item of order) {
       const tempItem = { ...item, added: false };
-      await axios.put('http://localhost:4000/updateitem', tempItem);
+      await axios.put(`${URL}/updateitem`, tempItem);
     }
     localStorage.removeItem('order');
     
-    await axios.post('http://localhost:4000/sendmail',data)
+    await axios.post(`${URL}/sendmail`,data)
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { URL } from '../../Constant/Constant';
 function AddCategory() {
   const [search, setSearch] = useState(''); 
   const [category, setCategory] = useState({ categoryName: '' });
@@ -10,7 +10,7 @@ function AddCategory() {
   const navigate = useNavigate();
 
   const go_addCategory = () => {
-    axios.post('http://localhost:4000/addcategory', category)
+    axios.post(`${URL}/addcategory`, category)
       .then((res) => {
         getdata();
       })
@@ -23,7 +23,7 @@ function AddCategory() {
 
   const getdata = async () => {
     try {
-      const res = await axios.get('http://localhost:4000/getcategory');
+      const res = await axios.get(`${URL}/getcategory`);
       setData(res.data);
       // setSearchdata(res.data); 
     } catch (err) {
@@ -41,7 +41,7 @@ function AddCategory() {
 
   const go_delete = async (id) => {
     try {
-      await axios.delete('http://localhost:4000/deletecategory', { data: { id: id } });
+      await axios.delete(`${URL}/deletecategory`, { data: { id: id } });
       setSearch('')
       getdata();
       setSearchdata(null)

@@ -2,12 +2,13 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { URL } from '../Constant/Constant'
 export default function ItemData() {
     const [data, setData] = useState(null)
     const navigate=useNavigate();
     const getItem = async () => {
         try {
-            await axios.get('http://localhost:4000/getitem')
+            await axios.get(`${URL}/getitem`)
                 .then((res) => {
                     console.log(res?.data);
                     setData((prev) => {
@@ -33,7 +34,7 @@ export default function ItemData() {
     const handleRemove=async(id)=>{
         // console.log("id=>",id);
        try{
-        await axios.delete('http://localhost:4000/deleteitem',{data:{id}})
+        await axios.delete(`${URL}/deleteitem`,{data:{id}})
             .then((res)=>{
                 console.log(res);
                 console.log("Item Deleted Successfully");

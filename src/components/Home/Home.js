@@ -2,6 +2,7 @@ import axios from 'axios';
 import './Home.css'
 import React, { useEffect, useState } from 'react'
 
+import { URL } from '../../Constant/Constant';
 function Home() {
   const [count,setCount]=useState({
     totalCategory:0,
@@ -10,7 +11,7 @@ function Home() {
   const [data,setData]=useState(null);
   const get =async()=>{
     try{
-      await axios.get('http://localhost:4000/countcategory')
+      await axios.get(`${URL}/countcategory`)
     .then((res)=>{setCount((prev)=>{
         return(
           {
@@ -30,7 +31,7 @@ function Home() {
 
   const countItem=async()=>{
     try{
-      await axios.get('http://localhost:4000/countitems')
+      await axios.get(`${URL}/countitems`)
       .then((res)=>{
         setCount((prev)=>{
           return(

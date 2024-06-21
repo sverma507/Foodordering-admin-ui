@@ -6,7 +6,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link,useNavigate} from 'react-router-dom';
-
+import { URL } from '../Constant/Constant';
 export default function Login0({ toggle,handleEmail}) {
   const [data, setData] = useState({
     email: "",
@@ -28,7 +28,7 @@ export default function Login0({ toggle,handleEmail}) {
     // const token = localStorage.getItem('token');
     // console.log("token from local=>", token);
     try {
-      const response = await axios.post('http://localhost:4000/login', data)
+      const response = await axios.post(`${URL}/login`, data)
       
       console.log("res=>", response);
       toast.success("User Found");

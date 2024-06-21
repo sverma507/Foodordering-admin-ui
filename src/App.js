@@ -12,8 +12,9 @@ import Login0 from "./components/Login0";
 import { useEffect, useState } from "react";
 import NotFound from "./components/NotFound/NotFound";
 // const nodemailer = require("nodemailer");
-
 function App() {
+  
+
   const [userFound, setUserFound] = useState({
     loggedin:false,
     admin:false
@@ -49,7 +50,7 @@ function App() {
       alert("Please Login !!")
     }
   },[])
-  console.log("userfound=>",userFound);
+  // console.log("userfound=>",userFound);
   return (
     <>
       {userFound.loggedin && <Nav userFound={userFound} toggle={toggle} />}

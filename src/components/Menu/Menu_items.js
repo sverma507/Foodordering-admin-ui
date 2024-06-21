@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { URL } from '../../Constant/Constant';
 const Menu_items = ({additem}) => {
   const [categoryData,setCategoryData]=useState(null);
   const [itemdata,setItemdata]=useState({
@@ -30,7 +31,7 @@ const Menu_items = ({additem}) => {
     })
   }
   const handleAddProduct=async()=>{
-    await axios.post('http://localhost:4000/additem',itemdata)
+    await axios.post(`${URL}/additem`,itemdata)
     .then((res)=>{
       // console.log(res);
       setItemdata({
@@ -50,7 +51,7 @@ const Menu_items = ({additem}) => {
 
   const getCategoryData=async()=>{
       try {
-        const res = await axios.get('http://localhost:4000/getcategory');
+        const res = await axios.get(`${URL}/getcategory`);
         setCategoryData(res.data);
         // setSearchdata(res.data); 
       } catch (err) {
@@ -65,7 +66,7 @@ const Menu_items = ({additem}) => {
     const id=tempData._id;
    
     try {
-      const res = await axios.put('http://localhost:4000/updateitem',itemdata);
+      const res = await axios.put(`${URL}/updateitem`,itemdata);
       // setCategoryData(res.data);
       // setSearchdata(res.data); 
       navigate('/itemdata');
