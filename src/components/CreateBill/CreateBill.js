@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { URL } from '../../Constant/Constant';
 function CreateBill() {
     const [grandTotal, setGrandTotal] = useState(0);
     const [data, setData] = useState(null);
@@ -18,7 +18,7 @@ function CreateBill() {
 
     const getdata = async () => {
         try {
-            const res = await axios.get('http://localhost:4000/getcategory');
+            const res = await axios.get(`${URL}/getcategory`);
             setData(res.data);
         } catch (err) {
             console.log("error in getting data", err);
@@ -28,7 +28,7 @@ function CreateBill() {
     const handleAdd = async (item) => {
         try {
             // console.log("itemByCategory======>", res.data);
-            const res = await axios.get('http://localhost:4000/getitembycategory', { params: { categoryName: item.categoryName } });
+            const res = await axios.get(`${URL}/getitembycategory`, { params: { categoryName: item.categoryName } });
             console.log("itemByCategory======>", res.data);
             // if (res.data.result.length > 0) {
                 setItemByCategory(res.data.result);
@@ -51,7 +51,7 @@ function CreateBill() {
         let temp;
         console.log("itemdata=>", itemdata);
         try {
-            await axios.put('http://localhost:4000/updateitem', itemdata);
+            await axios.put(`${URL}/updateitem`, itemdata);
         } catch (err) {
             console.log("error in updating item data", err);
         }
@@ -66,7 +66,7 @@ function CreateBill() {
             setOrder((prev) =>{temp= prev.filter((i) => i._id !== item._id); return temp});
         }
         // Refresh items for the current category without toggling the dropdown
-        const res = await axios.get('http://localhost:4000/getitembycategory', { params: { categoryName: category.categoryName } });
+        const res = await axios.get(`${URL}/getitembycategory`, { params: { categoryName: category.categoryName } });
         setItemByCategory(res.data.result);
         localStorage.setItem('order', JSON.stringify(temp));
         updateGrandTotal(temp)
@@ -91,7 +91,7 @@ function CreateBill() {
 
     const deleteOrder = async (itemId) => {
         try {
-            await axios.put('http://localhost:4000/updateitem', { _id: itemId, added: false });
+            await axios.put(`${URL}/updateitem`, { _id: itemId, added: false });
         } catch (err) {
             console.log("Error updating item:", err);
         }
@@ -148,7 +148,7 @@ function CreateBill() {
         const orderId=localStorage.getItem('orderId')
        if(orderId){
             try{
-                const result=await axios.get('http://localhost:4000/getorder',{params:{id:orderId}})
+                const result=await axios.get(`${URL}/getorder`,{params:{id:orderId}})
                 console.log("getOrder=>",result.data);
                 setOrder(result.data.result)
             }catch(err){

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import abc from "./assets/Image1.jpg";
 // import Login0 from "./Login0";
 import { Link } from "react-router-dom";
-
+import {URL} from '../Constant/Constant'
 export default function Register() {
   const [data, setData] = useState({
     first_Name: "",
@@ -31,7 +31,8 @@ export default function Register() {
       alert("Password and Confirm password should be the same.");
     } else {
       try {
-        const response = await axios.post("http://localhost:4000/register", data);
+        const response = await axios.post(`${URL}/register`, data);
+        console.log("response for registration=>",response);
         alert("Registration is completed");
         navigate("/");
       } catch (error) {
