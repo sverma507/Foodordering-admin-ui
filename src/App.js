@@ -38,6 +38,15 @@ function App() {
     console.log("sumit ");
     const token=localStorage.getItem('token')
     if(token){
+     const admin=localStorage.getItem('admin')
+     if(admin){
+      setUserFound({
+        loggedin:true,
+    admin:true,
+      })
+      
+
+     }else{
       setUserFound((prev)=>{
         return({
           ...prev,
@@ -45,6 +54,7 @@ function App() {
         })
       })
       
+     }
       navigate('/home')
     }else{
       alert("Please Login !!")

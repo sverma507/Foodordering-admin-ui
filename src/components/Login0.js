@@ -39,6 +39,9 @@ export default function Login0({ toggle,handleEmail}) {
       localStorage.setItem('token',token) 
       localStorage.setItem('email',email) 
       localStorage.setItem('fname',fname) 
+      if(admin){
+        localStorage.setItem('admin',admin);
+      }
       // console.log("adminData=====>",admin);
       toggle(admin,true);
       handleEmail(data.email);
