@@ -31,7 +31,7 @@ function CreateBill() {
             const res = await axios.get(`${URL}/getitembycategory`, { params: { categoryName: item.categoryName } });
             console.log("itemByCategory======>", res.data);
             // if (res.data.result.length > 0) {
-                setItemByCategory(res.data.result);
+                setItemByCategory(res.data);
                 showItemDropDown(item._id);
                 // }
                 } catch (err) {
@@ -158,7 +158,7 @@ function CreateBill() {
     }
 
        
-     
+     console.log("ItemBy Category=======>",itemByCategory);
 
     return (
         <div className='flex justify-between p-4'>
