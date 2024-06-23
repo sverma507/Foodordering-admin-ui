@@ -67,7 +67,8 @@ function CreateBill() {
         }
         // Refresh items for the current category without toggling the dropdown
         const res = await axios.get(`${URL}/getitembycategory`, { params: { categoryName: category.categoryName } });
-        setItemByCategory(res.data.result);
+        setItemByCategory(res.data);
+        console.log("result res==>",res);
         localStorage.setItem('order', JSON.stringify(temp));
         updateGrandTotal(temp)
 
@@ -118,22 +119,8 @@ function CreateBill() {
     const handleOrder=()=>{
         console.log("order===>",order);
        localStorage.setItem('order', JSON.stringify(order));
-        // console.log("called");
-        // try{
-        //     const result=await axios.post('http://localhost:4000/addorder',order)
-        //     console.log("response=>",result);
-        //     const Odr=result.data[0];
-        //     console.log("odr_id=>",Odr._id);
-        //     localStorage.setItem('orderId',Odr._id);
-            
-        // }
-        // catch(err){
-        //     console.log("error while sending the data to the backend of order");
-        // }
-        // // localStorage.setItem('orderID',)
-        
-       
     }
+
     useEffect(()=>{const t=localStorage.getItem('order');
         console.log("local====>",t);
         if(!t){
@@ -144,18 +131,6 @@ function CreateBill() {
             setOrder(JSON.parse(t))
         }
     },[])
-    const getOrder=async()=>{
-        const orderId=localStorage.getItem('orderId')
-       if(orderId){
-            try{
-                const result=await axios.get(`${URL}/getorder`,{params:{id:orderId}})
-                console.log("getOrder=>",result.data);
-                setOrder(result.data.result)
-            }catch(err){
-                console.log("error in get data of order from the backend");
-            }
-       }
-    }
 
        
      console.log("ItemBy Category=======>",itemByCategory);
